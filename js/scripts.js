@@ -5,18 +5,20 @@ function disableSubmit() {
 function enableSubmit() {
   $("#submit").removeAttr("disabled");
 };
+//
+// function areFieldsBlank() {
+//   // if either isn't a number,
+//   var countTo = parseInt($("#count-to").val());
+//   var countBy = parseInt($("#count-by").val());
+//   if (countTo === null || countTo === "", countBy === null || countBy === "") {
+//     alert("Please enter data into fields")
+//     return false;
+//   } else {
+//     return true;
+//   };
+// };
 
-function areFieldsBlank() {
-  // if either isn't a number,
-  var countTo = parseInt($("#count-to").val());
-  var countBy = parseInt($("#count-by").val());
-  if (countTo === null || countTo === "", countBy === null || countBy === "") {
-    alert("Please enter data into fields")
-    return false;
-  } else {
-    return true;
-  };
-};
+// Just make both questions required, and enable submit when both have appropriate numbers (on ruleValidation)
 
 function outputFunc(countTo, countBy) {
   outputArr = [];
@@ -26,13 +28,13 @@ function outputFunc(countTo, countBy) {
   };
 };
 
-function validateInput(countTo, countBy) {
+function ruleValidation(countTo, countBy) {
   // make sure values are submitted and test for 2 rules:
   /// 1, If countTo is (-), countBy must also be (-)
   /// 2. Absolute value of countTo >= countBy
 
   // If either are 0, disableSubmit
-  if ((countBy === 0) || (countTo === 0)) {
+  if ((countTo === 0) || (countBy === 0)) {
     alert("Please enter non-zero numbers");
   } else {
 
@@ -55,21 +57,28 @@ function validateInput(countTo, countBy) {
 $(document).ready(function() {
   disableSubmit();
 
-  $("#submit").click(function() {
-    var countTo = parseInt($("#count-to").val());
-    var countBy = parseInt($("#count-by").val());
-    if ((countTo == "") && (countBy === "")) {
-      
-    }
-    // dataInFields = areFieldsBlank();
-    // return dataInFields;
-  });
+  // $("#submit").click(function() {
+  //   var countTo = parseInt($("#count-to").val());
+  //   var countBy = parseInt($("#count-by").val());
+  //   // if ((countTo == "") && (countBy === "")) {
+  //
+  //   // }
+  //   // dataInFields = areFieldsBlank();
+  //   return dataInFields;
+  // });
+
 
   $("#submit").click(function(e) {
     e.preventDefault();
+    var textBool = doFieldsHaveText();
+    console.log(textBool);
     // get values of count-to and count-by
+
     var countTo = parseInt($("#count-to").val());
     var countBy = parseInt($("#count-by").val());
+    ruleValidation(countTo, countBy);
+
+    // run data validation
     twoNumbers = areFieldsBlank();
     if (twoNumbers) {
       output = outputFunc(countTo, countBy);
@@ -77,4 +86,14 @@ $(document).ready(function() {
     };
 
   });
+
 });
+
+// ----------------------------
+
+function doFieldsHaveText() {
+  if ((($("#count-to").val()) != "") && ($("#count-by").val() != "")) {
+    enableSubmit();
+    return true;
+  };
+};
