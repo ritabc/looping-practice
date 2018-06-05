@@ -11,11 +11,18 @@
   <body>
     <div class="container">
       <form id="count-up-by">
+        <h2>Enter a number to count up to by the multiple entered. Do not enter 0's - the starting point will be a Zero.</h2>
         <div class="form-group">
-          <label for="count-to">What do you want to count up to?
+          <label for="count-to">What do you want to count up <em>to</em>?
           <input id="count-to" class="form-control" type="text">
         </label>
         </div>
+        <div class="form-group">
+          <label for="count-by">What do you want to count up <em>by</em>?
+          <input id="count-by" class="form-control" type="text">
+        </label>
+        </div>
+        <button type="submit" class="btn btn-default" id="submit">Submit</button>
       </form>
     </div>
   </body>
